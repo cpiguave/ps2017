@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+
+        <link rel="stylesheet" type="text/css"
+              href="#{request.contextPath}/resources/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css"
+              href="#{request.contextPath}/resources/dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" type="text/css"
+              href="#{request.contextPath}/resources/dist/css/skins/skin-blue.min.css" />
+
+        <link rel="stylesheet" type="text/css"
+                  href="#{request.contextPath}/resources/bootstrap/css/font-awesome.min.css"/>
+            <link rel="stylesheet" type="text/css"
+                  href="#{request.contextPath}/resources/font-awesome/css/font-awesome.min.css"/>
+
+        <f:event type="preRenderView" listener="#{pantillaController.verificarSesion()}"/>
+    </h:head>
+
+    <h:body class="hold-transition skin-blue sidebar-mini">
+
+        <div class="wrapper">
+
+            <div id="top">
+
+                <header class="main-header">
+
+                    <!-- Logo -->
+                    <a href="Inicio.xhtml" class="logo">
+                        <!-- mini logo for sidebar mini 50x50 pixels -->
+                        <span class="logo-mini"><b>A</b>dmin</span>
+                        <!-- logo for regular state and mobile devices -->
+                        <span class="logo-lg"><b>Administrador</b></span>
+                    </a>
+
+                    <!-- Header Navbar -->
+                    <nav class="navbar navbar-static-top" role="navigation">
+                        <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle navigation</span>
+                        </a>
+                        <!-- Navbar Right Menu -->
+                        <div class="navbar-custom-menu">
+                            <ul class="nav navbar-nav">
+                                <!-- Messages: style can be found in dropdown.less-->
+
+
+
+
+                                <!-- User Account Menu -->
+                                <li class="dropdown user user-menu">
+                                    <!-- Menu Toggle Button -->
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <!-- The user image in the navbar-->
+                                        <h:graphicImage library="img" name="avatar5.png" class="user-image" alt="User Image"/>
+                                
+
+                                        <span class="hidden-xs"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <!-- The user image in the menu -->
+                                        <li class="user-header">
+                                            <h:graphicImage library="img" name="avatar5.png" class="img-circle" alt="User Image"/>
+                                            <p>#{opcionController.mostrarUsuarioLogeado()}</p>
+
+                                        </li>
+                                        <!-- Menu Body -->
+                                        <!-- Menu Footer-->
+                                        <li class="user-footer">
+                                            <div class="pull-left">
+                                                <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                            </div>
+                                            <div class="pull-right">
+                                            <p:commandButton actionListener="#{opcionController.cerrarSesion()}" value="Salir" class="btn btn-default btn-flat"/>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- Control Sidebar Toggle Button -->
+                                
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+
+
+            </div>
+
+
+
+            <div>
+
+
+
+
+                <div id="left">
+
+                    <aside class="main-sidebar">
+
+                        <!-- sidebar: style can be found in sidebar.less -->
+                        <section class="sidebar">
+
+                            <!-- Sidebar user panel (optional) -->
+                            <div class="user-panel">
+                                <div class="pull-left image">
+                                    <h:graphicImage library="img" name="avatar5.png" class="img-circle" alt="User Image"/>
+                                </div>
+                                <div class="pull-left info">
+                                    <p>#{opcionController.mostrarUsuarioLogeado()}</p>
+                                    <!-- Status -->
+                                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                                </div>
+                            </div>
+
+  
+                            <!-- Sidebar Menu -->
+                            <ul class="sidebar-menu">
+                             
+              
+
+
+
+                                <h:form>
+                                    <p:tieredMenu   model="#{opcionController.model}" style="width:232px ; color: black"/>
+
+
+                                            </h:form>
+
+
+
+
+                            </ul><!-- /.sidebar-menu -->
+                        </section>
+                        <!-- /.sidebar -->
+                    </aside>
+
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+        <script type="text/javascript" src="#{request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script> <!-- Correio -->
+        <script type="text/javascript" src="#{request.contextPath}/resources/dist/js/app.min.js"></script> <!-- Correio -->
+
+
+    </h:body>
+
+</html>

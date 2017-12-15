@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+
+    <h:head>
+        <title>Pagina Principal</title>
+        <!-- Bootstrap core CSS -->
+
+        <link rel="stylesheet" type="text/css"
+              href="#{request.contextPath}/resources/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css"
+              href="#{request.contextPath}/resources/dist/css/AdminLTE.min.css" />
+        <link rel="stylesheet" type="text/css"
+              href="#{request.contextPath}/resources/dist/css/skins/skin-blue.min.css" />
+        <link rel="stylesheet" type="text/css"
+              href="#{request.contextPath}/resources/bootstrap/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
+
+
+
+ <f:event type="preRenderView" listener="#{pantillaController.verificarSesion()}"/>
+
+
+
+    </h:head>
+    <h:body class="hold-transition skin-blue sidebar-mini">
+
+        <div class="wrapper">
+
+            <!-- Main Header -->
+            <header class="main-header">
+
+                <!-- Logo -->
+                <a href="Inicio.html" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>A</b>dmin</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>Administrador</b></span>
+                </a>
+
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- Messages: style can be found in dropdown.less-->
+
+
+
+
+                            <!-- User Account Menu -->
+                            <li class="dropdown user user-menu">
+                                <!-- Menu Toggle Button -->
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <!-- The user image in the navbar-->
+                                    <h:graphicImage library="img" name="avatar5.png" class="user-image" alt="User Image"/>
+
+
+                                    <span class="hidden-xs"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- The user image in the menu -->
+                                    <li class="user-header">
+                                        <h:graphicImage library="img" name="avatar5.png" class="img-circle" alt="User Image"/>
+                                        <p>#{opcionController.mostrarUsuarioLogeado()}</p>
+
+                                    </li>
+                                    <!-- Menu Body -->
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="#" class="btn btn-default btn-flat">Salir</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <h:graphicImage library="img" name="avatar5.png" class="img-circle" alt="User Image"/>
+                        </div>
+                        <div class="pull-left info">
+                            <p>#{opcionController.mostrarUsuarioLogeado()}</p>
+                            <!-- Status -->
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
+                    </div>
+
+
+                    <!-- /.search form -->
+
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu">
+
+
+
+
+                        <h:form>
+                            <p:tieredMenu   model="#{opcionController.model}" style="width:232px ; color: black"/>
+
+
+                        </h:form>
+
+
+
+
+                    </ul><!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+
+                <h:form id="frmOpcion">
+
+                    <p:toolbar id="tolBarOperaciones">
+                        <p:toolbarGroup align="left">
+
+                            <p:commandButton  value="Nuevo" 
+                                              title="Nuevo" 
+                                              icon="fa fa-file-o" 
+                                              process="@this"
+                                              actionListener="#{opcionController.resetearFormularioM()}"  
+                                              update="@form" />
+                            <p:commandButton  value="Modificar" title="Modificar" 
+                                              icon="fa fa-pencil-square-o"  
+                                              process="@this frmOpcion:tabVieOP:panGridOpcion" 
+                                              actionListener="#{opcionController.update()}" 
+                                              update="frmOpcion:tabVieOP:datOpcion frmOpcion:tabVieOP"/>
+                            <p:commandButton  value="Guardar" title="Guardar" 
+                                              icon="fa fa-floppy-o" 
+                                              process="@this frmOpcion:tabVieOP:panGridOpcion"  
+                                              actionListener="#{opcionController.GuardarActualizarM}" 
+                                              update="frmOpcion:tabVieOP:datOpcion frmOpcion:tabVieOP" />
+                            <p:commandButton  value="Cancelar" title="Cancelar" icon="fa fa-ban"    />
+                            <p:commandButton  value="Eliminar"    
+                                              title="Eliminar" 
+                                              icon="fa fa-trash" 
+                                              onclick="PF('dlg4').show();"/>
+                            <p:commandButton  value="Selecionar"    title="Seleccionar" icon="fa fa-clipboard" process="@this" 
+                                              actionListener="#{opcionController.modificarMenu()}"  update="frmOpcion:tabVieOP:datOpcion frmOpcion:tabVieOP"/>
+
+                        </p:toolbarGroup>
+                    </p:toolbar> 
+
+
+                    <p:messages id="mensaje" autoUpdate="false" severity="info, fatal" showSummary="true" showDetail="true"/>
+
+                    <p:tabView id="tabVieOP">
+
+                        <p:tab title="Nuevo Menu">
+                            <h:panelGrid columns="3" id="panGridOpcion" >
+
+                                <p:outputLabel for="idOpcion" value="Id Opcion: " />
+                                <p:inputText  id="idOpcion"  value="#{opcionController.opcion.idOpcion}" required="true" requiredMessage="Campo requerido" />
+                                <p:message for="idOpcion" />
+
+                                <p:outputLabel for="desOpcion" value="Descripcion: " />
+                                <p:inputText id="desOpcion" value="#{opcionController.opcion.desOpcion}" required="true" requiredMessage="Campo requerido"   disabled=""/>
+                                <p:message for="desOpcion" />
+
+
+                                <p:outputLabel for="lnkOpcion" value="Link: " />
+                                <p:inputText id="lnkOpcion" value="#{opcionController.opcion.lnkOpcion}" required="true" requiredMessage="Campo requerido"/>
+                                <p:message for="lnkOpcion" />
+
+                                <p:outputLabel for="idPadre" value="Referencia" />
+                                <p:inputText id="idPadre" value="#{opcionController.opcion.idPadre}" />
+                                <p:message for="idPadre" />
+
+
+
+                                <p:outputLabel for="ctrMenus" value="Tipo Menu" />
+                                <p:selectOneMenu id="ctrMenus" value="#{opcionController.opcion.ctrMenus}" required="true">
+                                    <f:selectItem itemValue="1" itemLabel="Menu" />
+                                    <f:selectItem itemValue="2" itemLabel="Submenu" />
+                                    <f:selectItem itemValue="3" itemLabel="Item" />
+                                </p:selectOneMenu>
+                                <p:message for="ctrMenus" />
+
+
+                            </h:panelGrid>
+
+                        </p:tab>
+                        <p:tab title="Listar de Menus">
+
+                            <p:dataTable id="datOpcion"
+                                         value="#{opcionController.lista}" 
+                                         var="item" 
+                                         selectionMode="single"
+                                         rowKey="#{item.idOpcion}"
+                                         emptyMessage="No se encontro el Menu" 
+                                         filteredValue="#{opcionController.listaSeleccionada}" 
+                                         widgetVar="Menu_PT"
+                                         scrollable="true"
+                                         scrollWidth="1040">
+                                <p:ajax event="rowSelect" listener="#{opcionController.SelecionOpcion}"/>
+
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Buscar Menu" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('Menu_PT').filter()" style="width:150px" placeholder="Ingrese busqueda"/>
+                                    </p:outputPanel>
+                                </f:facet>
+
+                                <p:column filterBy="#{item.idOpcion}" style="width:150px" sortBy="#{item.idOpcion}">
+                                    <f:facet name="header">
+                                        <h:outputText value="id Opcion"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idOpcion}"/>
+                                </p:column>
+
+                                <p:column filterBy="#{item.desOpcion}" style="width:150px">
+                                    <f:facet name="header">
+                                        <h:outputText value="Descripcion"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.desOpcion}"/>
+                                </p:column>
+
+                                <p:column style="width:150px">
+                                    <f:facet name="header" >
+                                        <h:outputText value="Referencia"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idPadre}"/>
+                                </p:column>
+
+                                <p:column style="width:150px">
+                                    <f:facet name="header">
+                                        <h:outputText value="Link"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.lnkOpcion}"/>
+                                </p:column>
+
+                                <p:column style="width:150px">
+                                    <f:facet name="header">
+                                        <h:outputText value="Tipo Menu"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ctrMenus}"/>
+                                </p:column>
+
+
+                            </p:dataTable>
+
+
+                        </p:tab>
+
+                        <p:tab title="Asignacion Permisos">
+
+                            <p:panelGrid columns="3">
+
+
+
+                                    <p:outputLabel  value="Nombre Usuario" />
+
+                                    <p:selectOneMenu id="id_usu" value="#{permisosController.usuario1.idUsuario}">
+                                        <f:selectItems  value="#{permisosController.usuario}" var="usu" itemLabel="#{usu.nomUsuario}" itemValue="#{usu.idUsuario}"/>
+                                    </p:selectOneMenu>
+                                    <p:commandButton process="checkboxDT" actionListener="#{permisosController.registar_Op_Us()}" value="Asignar" icon="ui-icon-check"/>
+
+                            
+
+
+                            </p:panelGrid>
+
+
+
+                            <p:dataTable   id="checkboxDT" var="per" value="#{permisosController.lista}"  rowKey="#{per.idOpcion}" selection="#{permisosController.lista_select}" style="margin-bottom:0">
+                                <f:facet name="header">
+                                    Menus
+                                </f:facet>
+
+                                <p:column selectionMode="multiple" style="width:35px;text-align:center"  />
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{per.idOpcion}" />
+                                </p:column>
+                                <p:column headerText="Descripcion">
+                                    <h:outputText value="#{per.desOpcion}" />
+                                </p:column>
+                                <p:column headerText="Link">
+                                    <h:outputText value="#{per.lnkOpcion}" />
+                                </p:column>
+                                <p:column headerText="Color">
+                                    <h:outputText value="#{per.ctrMenus}" />
+                                </p:column>
+
+                            </p:dataTable>
+
+
+                        </p:tab>
+
+                    </p:tabView>
+
+
+
+
+
+
+
+                    <p:confirmDialog header="Eliminar" widgetVar="dlg4"  
+                                     closeOnEscape="true" id="dialogo4" message="Esta Seguro de Eliminar Menu?" >
+                        <p:commandButton icon="ui-icon-check"
+                                         value="Aceptar" 
+                                         process="@this"
+                                         actionListener="#{opcionController.eliminarMenu}"
+                                         update="frmOpcion:tabVieOP:datOpcion"
+                                         onclick="PF('dlg4').hide();"/>
+                        <p:commandButton icon="ui-icon-close" value="Cancelar" onclick="PF('dlg4').hide();" />
+
+                    </p:confirmDialog>
+
+                    <p:dialog header="Visualizar Usuarios" widgetVar="dlg3" modal="true"  resizable="false" closeOnEscape="true" draggable="false" >
+
+                        <p:panelGrid columns="2"  >
+                            <p:outputLabel value="Desea crear un Nuevo Usuario"/>
+                            <p:column/>
+                            <p:commandButton icon="ui-icon-check" value="Aceptar"  immediate="true" onclick="Mostrar_Opcion(); PF('dlg3').hide();"  />
+                            <p:commandButton icon="ui-icon-close" value="Cancelar" immediate="true" onclick="PF('dlg3').hide();" />
+                        </p:panelGrid>
+                    </p:dialog>
+
+
+
+                </h:form>     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div><!-- /.content-wrapper -->
+
+
+
+            <!-- Control Sidebar -->
+
+            <!-- Add the sidebar's background. This div must be placed
+                 immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
+        </div><!-- ./wrapper -->
+
+        <!-- REQUIRED JS SCRIPTS -->
+
+
+
+
+        <script type="text/javascript" src="#{request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script> <!-- Correio -->
+        <script type="text/javascript" src="#{request.contextPath}/resources/dist/js/app.min.js"></script> <!-- Correio -->
+
+
+
+    </h:body>
+
+</html>

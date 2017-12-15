@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <title>Admin Starter</title>
+            <meta charset="utf-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+            <meta name="theme-color" content="#444"/>
+            <meta name="mobile-web-app-capable" content="yes"/>
+
+            <link rel="stylesheet" type="text/css"
+                  href="#{request.contextPath}/resources/bootstrap/css/bootstrap.min.css" />
+            <link rel="stylesheet" type="text/css"
+                  href="#{request.contextPath}/resources/dist/css/AdminLTE.min.css" />
+            <link rel="stylesheet" type="text/css"
+                  href="#{request.contextPath}/resources/dist/css/skins/skin-blue.min.css" />
+            <link rel="stylesheet" type="text/css"
+                  href="#{request.contextPath}/resources/bootstrap/css/font-awesome.min.css"/>
+            <link rel="stylesheet" type="text/css"
+                  href="#{request.contextPath}/resources/font-awesome/css/font-awesome.min.css"/>
+
+        </h:head>
+
+        <h:body styleClass="hold-transition login-page">
+            <div id="loader" class="load-bar" style="display: none">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
+            <div class="login-box">
+                <div class="login-logo">
+                    <b>Pagina Principal</b>
+                </div>
+                <!-- /.login-logo -->
+                <div class="box login-box-body">
+                    <h:form>
+                        <p class="login-box-msg">Inicio Sessión</p>
+                        <p:messages closable="true"/>
+
+                        <div class="form-group has-feedback">
+                            <p:inputText value="#{indexController.usuario.nomUsuario}"  styleClass="form-control" placeholder=" Usuario"
+                                         required="true"
+                                         requiredMessage="Necesita Ingresar Usuario"
+
+                                         
+                                         
+                                         />
+
+                            <i class=" fa fa-user form-control-feedback" style="margin-top: 2px"></i>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <p:inputText value="#{indexController.usuario.pwdUsuario}" type="password" styleClass="form-control"
+                                         placeholder="Contraseña" required="true"
+                                         requiredMessage="Necesita Ingresar Contraseña"/>
+                            <i class="fa fa-lock form-control-feedback" style="margin-top: 2px"></i>
+                         
+                        </div>
+                        <div class="row">
+
+                            <p:spacer height="15"/>
+                            <div class="col-xs-12">
+                                <p:commandButton styleClass="btn btn-success btn-block" action="#{indexController.iniciarSesion()}" onclick="showBar()" oncomplete="if(args.validationFailed){hideBar()}"
+                                                 value="Ingresar" update="@form"/>
+                            </div>
+                        </div>
+                    </h:form>
+
+
+
+
+                </div>
+                <!-- /.login-box-body -->
+            </div>
+
+
+
+            <style type="text/css">
+                body .load-bar {
+                    margin-top: -20px;
+                }
+            </style>
+
+            <script type="text/javascript" src="#{request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script> <!-- Correio -->
+            <script type="text/javascript" src="#{request.contextPath}/resources/dist/js/app.min.js"></script> <!-- Correio -->
+            <!-- /.login-box-body -->
+            <script type="text/javascript">document.oncontextmenu = function(){return false;}</script>
+
+        </h:body>
+    </f:view>
+</html>
