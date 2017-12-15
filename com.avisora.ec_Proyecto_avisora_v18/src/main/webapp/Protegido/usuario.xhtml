@@ -22,6 +22,7 @@
               href="#{request.contextPath}/resources/font-awesome/css/font-awesome.min.css"/>
 
         <link href="#{request.contextPath}/resources/js/calendar_es.js"/>
+       
 
 
         <f:event type="preRenderView" listener="#{pantillaController.verificarSesion()}"/>
@@ -119,305 +120,35 @@
                 </section>
                 <!-- /.sidebar -->
             </aside>
+            
+            
+            
+            
+            
             <div class="content-wrapper">
 
-
-                <h:form id="frmUsuario">
-
-                    <p:toolbar id="tolBarOperaciones">
-                        <p:toolbarGroup align="left">
-
-                            <p:commandButton  value="Nuevo" 
-                                              title="Nuevo" 
-                                              icon="fa fa-file-o" 
-                                              process="@this"
-                                              actionListener="#{usuarioController.resetearFormulario()}"  
-                                              update="@form frmUsuario:tabVieGen:datUsuario frmUsuario:tabVieGen frmUsuario:tolBarOperaciones"  />
-                            <p:commandButton  value="Editar" title="Modificar" 
-                                              icon="fa fa-pencil-square-o"  
-                                              process="@this frmUsuario:tabVieGen:panGridUsuario" 
-                                              actionListener="#{usuarioController.update}" 
-                                              update="frmUsuario:tabVieGen:datUsuario frmUsuario:tabVieGen" disabled="#{usuarioController.habilitado}"/>
-
-                            <p:commandButton  value="Guardar" title="Guardar" 
-                                              icon="fa fa-floppy-o" 
-                                              process="@this frmUsuario:tabVieGen:panGridUsuario"  
-                                              actionListener="#{usuarioController.guardarActualizar}" 
-                                              update="frmUsuario:tabVieGen:datUsuario frmUsuario:tabVieGen" disabled="#{usuarioController.habilitado}"/>
-                            <p:commandButton  value="Cancelar" 
-                                              title="Cancelar"
-                                              icon="fa fa-ban"  
-                                              actionListener="#{usuarioController.deshabilitarUsu()}" 
-                                              disabled="#{usuarioController.habilitado}" 
-                                              update="frmUsuario:tabVieGen:datUsuario frmUsuario:tabVieGen frmUsuario:tolBarOperaciones"/>
-
-                            <p:commandButton  value="Eliminar"    
-                                              title="Eliminar" 
-                                              icon="fa fa-trash" 
-                                              onclick="PF('dlg4').show();" 
-                                              disabled="#{usuarioController.habilitado}"/>
-                            <p:commandButton  value="Selecionar"    
-                                              title="Seleccionar" 
-                                              icon="fa fa-clipboard" 
-                                              process="@this" 
-                                              disabled="#{usuarioController.habilitado}"
-                                              actionListener="#{usuarioController.modificar()}"  
-                                              update="frmUsuario:tabVieGen:datUsuario frmUsuario:tabVieGen frmUsuario:tolBarOperaciones" />
-
-                            <p:commandButton  value="Visualizar"    
-                                              title="Visualizar" 
-                                              icon="fa fa-search" 
-                                              process="@this" 
-                                              actionListener="#{usuarioController.visualizar()}"  
-                                              update="frmUsuario:tabVieGen:datUsuario frmUsuario:tabVieGen frmUsuario:tolBarOperaciones" />
-
-                        </p:toolbarGroup>
-                    </p:toolbar> 
-
-
-                    <p:messages id="mensaje" autoUpdate="false" severity="info, fatal" showSummary="true" showDetail="true"/>
-
-                    <p:tabView id="tabVieGen" >
-
-                        <p:tab title="Ingreso Usuario" rendered="#{usuarioController.ocultar}">
-                            <h:panelGrid columns="7" id="panGridUsuario" >
-
-                                <p:outputLabel for="Id_Usuario" value="Id Usuario" />
-                                <p:inputText  id="Id_Usuario"  value="#{usuarioController.usuario.idUsuario}" required="true" requiredMessage="Campo requerido" />
-                                <p:message for="Id_Usuario" />
-                                <p:column/>    <p:column/>    <p:column/>    <p:column/>
-                                <p:outputLabel for="txtUsuario" value="Usuario" />
-                                <p:inputText id="txtUsuario" value="#{usuarioController.usuario.nomUsuario}" required="true" requiredMessage="Campo requerido"   disabled=""/>
-                                <p:message for="txtUsuario" />
-
-                                <p:column/>
-
-                                <p:outputLabel for="txtcorreo" value="Correo" />
-                                <p:inputText id="txtcorreo" value="#{usuarioController.usuario.dirElectronica}" required="true" requiredMessage="Campo requerido"/>
-                                <p:message for="txtcorreo" />
-
-                                <p:outputLabel for="txtTelefono" value="Telefono" />
-                                <p:inputText id="txtTelefono" value="#{usuarioController.usuario.tlfCelular}" required="true" requiredMessage="Campo requerido"/>
-                                <p:message for="txtTelefono" />
-
-                                <p:column/>
-
-                                <p:outputLabel for="C_control" value="Controlador" />
-                                <p:selectOneRadio id="C_control" value="#{usuarioController.usuario.ctrHabilitado}" required="true">
-                                    <f:selectItem itemValue="1" itemLabel="Habilitado" />
-                                    <f:selectItem itemValue="0" itemLabel="Desabilitado" />
-                                </p:selectOneRadio>
-                                <p:message for="C_control" />
-
-                                <p:outputLabel for="cboTipo" value="Tipo de Cuenta" />
-                                <p:selectOneMenu id="cboTipo" value="#{usuarioController.usuario.admUsuario}" required="true" requiredMessage="Campo requerido">
-                                    <f:selectItem itemValue="1" itemLabel="Administrador"/> 
-                                    <f:selectItem itemValue="0" itemLabel="Operario"/> 
-                                </p:selectOneMenu>
-                                <p:message for="cboTipo" />
-
-                                <p:column/>
-
-                                <p:outputLabel for="txtFecha" value="Fec. Registro" />
-                                <p:calendar  id="txtFecha" locale="es" value="#{usuarioController.usuario.fecRegistro}" required="true">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </p:calendar>
-                                <p:message for="txtFecha" />
-
-                                <p:outputLabel for="txtDia" value="Dias Activo " />
-                                <p:inputText  id="txtDia" value="#{usuarioController.usuario.diaActpwd}" required="true" requiredMessage="Campo requerido" />
-                                <p:message for="txtDia" />
-
-                                <p:column/>
-
-                                <p:outputLabel for="txtFecha_a" value="Fec. Clave Actual: " />
-                                <p:calendar  id="txtFecha_a" locale="es" value="#{usuarioController.usuario.fecAucpwd}" required="true">
-                                    <f:convertDateTime pattern="dd/MM/yyyy" />
-                                </p:calendar>
-                                <p:message for="txtFecha_a" />
-
-                                <p:separator/>              <p:separator/>              <p:separator/>              <p:separator/>              <p:separator/>              <p:separator/>              <p:separator/> 
-
-                                <p:outputLabel for="clave1" value="Clave"/>
-                                <p:password id="clave1" value="#{usuarioController.usuario.pwdUsuario}" required="true" requiredMessage="Campo requerido"
-                                            validatorMessage="Las claves no coinciden." weakLabel="Débil" strongLabel="Fuerte" goodLabel="Bueno"
-                                            match="clave2" feedback="true" promptLabel="Ingrese una clave"/>
-                                <p:message for="clave1" />
-
-                                <p:outputLabel for="clave2" value="Repetir Clave" />
-                                <p:password id="clave2" required="true" requiredMessage="Campo requerido"/>
-                                <p:message for="clave2" />
-                            </h:panelGrid>
-
-                            <p:accordionPanel>
-                                <p:tab title="Permisos asigandos al Usuario" rendered="#{usuarioController.ocultar}">
-
-                                    <p:dataTable   
-                                        id="checkboxDT" 
-                                        var="per" 
-                                        value="#{permisosController.lista}"  
-                                        rowKey="#{per.idOpcion}" 
-                                        selection="#{permisosController.lista_select}" 
-                                        style="margin-bottom:0" 
-                                        disabledTextSelection="#{opcionController.lista_us == opcionController.opcion.idPadre}"  
-                                        disabledSelection="#{opcionController.lista_us == opcionController.opcion.idPadre}">
-                                        <f:facet name="header">
-                                            Menus
-                                        </f:facet>
-
-                                        <p:column selectionMode="multiple" style="width:35px;text-align:center"  />
-                                        <p:column headerText="Id" sortBy="#{per.idOpcion}">
-                                            <h:outputText value="#{per.idOpcion}" />
-                                        </p:column>
-                                        <p:column headerText="Descripcion">
-                                            <h:outputText value="#{per.desOpcion}" />
-                                        </p:column>
-
-
-
-                                    </p:dataTable>
-                                </p:tab>
-
-                            </p:accordionPanel>
-
-
-
-                        </p:tab>
-
-
-                        <p:tab title="Listar Usuarios" rendered="#{usuarioController.ocultar}" >
-
-                            <p:dataTable id="datUsuario"
-                                         value="#{usuarioController.usuario_list}" 
-                                         var="item" 
-                                         selectionMode="single"
-                                         rowKey="#{item.idUsuario}"
-                                         emptyMessage="No se encontro el usuario" 
-                                         filteredValue="#{usuarioController.usuario_filter}" 
-                                         widgetVar="Usuario_PT"
-                                         scrollable="true"
-                                         scrollWidth="1040">
-                                <p:ajax event="rowSelect" listener="#{usuarioController.SelecionUsuario}"/>
-
-                                <f:facet name="header">
-                                    <p:outputPanel>
-                                        <h:outputText value="Buscar Usuario:" />
-                                        <p:inputText id="globalFilter" onkeyup="PF('Usuario_PT').filter()" style="width:150px" placeholder="Ingrese busqueda"/>
-                                    </p:outputPanel>
-                                </f:facet>
-
-                                <p:column filterBy="#{item.idUsuario}" style="width:150px" sortBy="#{item.idUsuario}">
-                                    <f:facet name="header">
-                                        <h:outputText value="id Usuario"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.idUsuario}"/>
-                                </p:column>
-                                <p:column filterBy="#{item.nomUsuario}" style="width:150px">
-                                    <f:facet name="header">
-                                        <h:outputText value="Nombre Usuario"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nomUsuario}"/>
-                                </p:column>
-                                <p:column style="width:150px">
-                                    <f:facet name="header" >
-                                        <h:outputText value="Habilitado"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.ctrHabilitado}"/>
-                                </p:column>
-                                <p:column style="width:150px">
-                                    <f:facet name="header">
-                                        <h:outputText value="Contraseña"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.pwdUsuario}"/>
-                                </p:column>
-                                <p:column style="width:150px">
-                                    <f:facet name="header">
-                                        <h:outputText value="Fecha de Registro"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fecRegistro}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column style="width:150px">
-                                    <f:facet name="header">
-                                        <h:outputText value="Fecha Actualizacion"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.fecAucpwd}">
-                                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                                    </h:outputText>
-                                </p:column>
-                                <p:column style="width:150px">
-                                    <f:facet name="header">
-                                        <h:outputText value="Dia Activo"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.diaActpwd}"/>
-                                </p:column>
-                                <p:column style="width:180px">
-                                    <f:facet name="header">
-                                        <h:outputText value="Correo"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.dirElectronica}"/>
-                                </p:column>
-                                <p:column style="width:150px">
-                                    <f:facet name="header">
-                                        <h:outputText value="Telefono" style="width:150px"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.tlfCelular}"/>
-                                </p:column>
-                                <p:column style="width:150px">
-                                    <f:facet name="header">
-                                        <h:outputText value="Tipo Usuario"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.admUsuario}"/>
-                                </p:column>
-                            </p:dataTable>
-
-
-                        </p:tab>
-
-
-
-
-                    </p:tabView>
-
-
-
-
-
-
-
-                    <p:confirmDialog header="Eliminar" widgetVar="dlg4"  
-                                     closeOnEscape="true" id="dialogo4" message="Esta Seguro de Eliminar Usuario?" >
-                        <p:commandButton icon="ui-icon-check"
-                                         value="Aceptar" 
-                                         process="@this"
-                                         actionListener="#{usuarioController.EliminarU}"
-                                         update="frmUsuario:tabVieGen:datUsuario"
-                                         onclick="PF('dlg4').hide();"/>
-                        <p:commandButton icon="ui-icon-close" value="Cancelar" onclick="PF('dlg4').hide();" />
-
-                    </p:confirmDialog>
-
-                    <p:dialog header="Visualizar Usuarios" widgetVar="dlg3" modal="true"  resizable="false" closeOnEscape="true" draggable="false" >
-
-                        <p:panelGrid columns="2"  >
-                            <p:outputLabel value="Desea crear un Nuevo Usuario"/>
-                            <p:column/>
-                            <p:commandButton icon="ui-icon-check" value="Aceptar"  immediate="true" onclick="Mostrar_Opcion(); PF('dlg3').hide();"  />
-                            <p:commandButton icon="ui-icon-close" value="Cancelar" immediate="true" onclick="PF('dlg3').hide();" />
-                        </p:panelGrid>
-                    </p:dialog>
-
-
-
-                </h:form>           
-
+                <div id="menu">
+                    
+                       <p:commandButton  value="Nuevo" > </p:commandButton> 
+                       
+                    <button  onclick="nuevo_usuario()"  class="btn btn-success btn-md "><span class="glyphicon glyphicon-pencil">Nuevo</span></button>
+                    
+                    <button  onclick="nuevo_usuario()"  class="btn btn-success btn-md "><span class="glyphicon glyphicon-pencil">Nuevo</span></button>
+                    <p:button icon="fa fa-pencil-square-o"    onclick="#{usuarioController.resetearFormulario()}" value="Editar" ></p:button>
+                    <p:button icon="fa fa-floppy-o"   onclick="#{usuarioController.resetearFormulario()}" value="Guardar" ></p:button>
+                    <p:button icon="fa fa-ban"  onclick="#{usuarioController.resetearFormulario()}" value="Cancelar" ></p:button>
+                    <p:button icon="fa fa-clipboard"    onclick="#{usuarioController.resetearFormulario()}" value="Seleccionar" ></p:button>
+                    <p:button  icon="fa fa-search"  onclick="#{usuarioController.resetearFormulario()}" value="Visualizar" ></p:button>
+                </div>
+                
+                <div id="contenido"></div>
 
             </div><!-- /.content-wrapper -->
 
             <div class="control-sidebar-bg"></div>
         </div><!-- ./wrapper -->
         <script type="text/javascript" src="#{request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script> <!-- Correio -->
+        <script type="text/javascript" src="#{request.contextPath}/resources/js/usuario.js"></script> <!-- Correio -->
         <script type="text/javascript" src="#{request.contextPath}/resources/dist/js/app.min.js"></script> <!-- Correio -->
 
         <h:outputScript library="js" name="calendar_es.js" />

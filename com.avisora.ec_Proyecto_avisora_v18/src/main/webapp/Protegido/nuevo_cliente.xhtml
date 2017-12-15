@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+
+   
+    <h:body class="hold-transition skin-blue sidebar-mini">
+
+        
+
+            <!-- Left side column. contains the logo and sidebar -->
+            
+            
+           
+
+                <h:form id="frmUsuario">
+
+                  
+
+
+                    <p:messages id="mensaje" autoUpdate="true" severity="info, fatal" showSummary="true" showDetail="true"/>
+
+                    <p:tabView id="tabVieGen" >
+
+                        <p:tab title="Ingreso Usuario" >
+                            <h:panelGrid columns="7" id="panGridUsuario" >
+
+                                <p:outputLabel for="Id_Usuario" value="Id Usuario" />
+                                <p:inputText  id="Id_Usuario"  value="#{usuarioController.usuario.idUsuario}" required="true" requiredMessage="Campo requerido" />
+                                <p:message for="Id_Usuario" />
+                                <p:column/>    <p:column/>    <p:column/>    <p:column/>
+                                <p:outputLabel for="txtUsuario" value="Usuario" />
+                                <p:inputText id="txtUsuario" value="#{usuarioController.usuario.nomUsuario}" required="true" requiredMessage="Campo requerido"   disabled=""/>
+                                <p:message for="txtUsuario" />
+
+                                <p:column/>
+
+                                <p:outputLabel for="txtcorreo" value="Correo" />
+                                <p:inputText id="txtcorreo" value="#{usuarioController.usuario.dirElectronica}" required="true" requiredMessage="Campo requerido"/>
+                                <p:message for="txtcorreo" />
+
+                                <p:outputLabel for="txtTelefono" value="Telefono" />
+                                <p:inputText id="txtTelefono" value="#{usuarioController.usuario.tlfCelular}" required="true" requiredMessage="Campo requerido"/>
+                                <p:message for="txtTelefono" />
+
+                                <p:column/>
+
+                                <p:outputLabel for="C_control" value="Controlador" />
+                                <p:selectOneRadio id="C_control" value="#{usuarioController.usuario.ctrHabilitado}" required="true">
+                                    <f:selectItem itemValue="1" itemLabel="Habilitado" />
+                                    <f:selectItem itemValue="0" itemLabel="Desabilitado" />
+                                </p:selectOneRadio>
+                                <p:message for="C_control" />
+
+                                <p:outputLabel for="cboTipo" value="Tipo de Cuenta" />
+                                <p:selectOneMenu id="cboTipo" value="#{usuarioController.usuario.admUsuario}" required="true" requiredMessage="Campo requerido">
+                                    <f:selectItem itemValue="1" itemLabel="Administrador"/> 
+                                    <f:selectItem itemValue="0" itemLabel="Operario"/> 
+                                </p:selectOneMenu>
+                                <p:message for="cboTipo" />
+
+                                <p:column/>
+
+                                <p:outputLabel for="txtFecha" value="Fec. Registro" />
+                                <p:calendar  id="txtFecha" locale="es" value="#{usuarioController.usuario.fecRegistro}" required="true">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </p:calendar>
+                                <p:message for="txtFecha" />
+
+                                <p:outputLabel for="txtDia" value="Dias Activo " />
+                                <p:inputText  id="txtDia" value="#{usuarioController.usuario.diaActpwd}" required="true" requiredMessage="Campo requerido" />
+                                <p:message for="txtDia" />
+
+                                <p:column/>
+
+                                <p:outputLabel for="txtFecha_a" value="Fec. Clave Actual: " />
+                                <p:calendar  id="txtFecha_a" locale="es" value="#{usuarioController.usuario.fecAucpwd}" required="true">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </p:calendar>
+                                <p:message for="txtFecha_a" />
+
+                                <p:separator/>              <p:separator/>              <p:separator/>              <p:separator/>              <p:separator/>              <p:separator/>              <p:separator/> 
+
+                                <p:outputLabel for="clave1" value="Clave"/>
+                                <p:password id="clave1" value="#{usuarioController.usuario.pwdUsuario}" required="true" requiredMessage="Campo requerido"
+                                            validatorMessage="Las claves no coinciden." weakLabel="Débil" strongLabel="Fuerte" goodLabel="Bueno"
+                                            match="clave2" feedback="true" promptLabel="Ingrese una clave"/>
+                                <p:message for="clave1" />
+
+                                <p:outputLabel for="clave2" value="Repetir Clave" />
+                                <p:password id="clave2" required="true" requiredMessage="Campo requerido"/>
+                                <p:message for="clave2" />
+                            </h:panelGrid>
+
+                            <p:accordionPanel>
+                                <p:tab title="Permisos asigandos al Usuario" rendered="#{usuarioController.ocultar}">
+
+                                    <p:dataTable   
+                                        id="checkboxDT" 
+                                        var="per" 
+                                        value="#{permisosController.lista}"  
+                                        rowKey="#{per.idOpcion}" 
+                                        selection="#{permisosController.lista_select}" 
+                                        style="margin-bottom:0" 
+                                        disabledTextSelection="#{opcionController.lista_us == opcionController.opcion.idPadre}"  
+                                        disabledSelection="#{opcionController.lista_us == opcionController.opcion.idPadre}">
+                                        <f:facet name="header">
+                                            Menus
+                                        </f:facet>
+
+                                        <p:column selectionMode="multiple" style="width:35px;text-align:center"  />
+                                        <p:column headerText="Id" sortBy="#{per.idOpcion}">
+                                            <h:outputText value="#{per.idOpcion}" />
+                                        </p:column>
+                                        <p:column headerText="Descripcion">
+                                            <h:outputText value="#{per.desOpcion}" />
+                                        </p:column>
+
+
+
+                                    </p:dataTable>
+                                </p:tab>
+
+                            </p:accordionPanel>
+
+
+
+                        </p:tab>
+
+
+
+
+
+                    </p:tabView>
+
+
+
+
+
+
+
+
+                    <p:dialog header="Visualizar Usuarios" widgetVar="dlg3" modal="true"  resizable="false" closeOnEscape="true" draggable="false" >
+
+                        <p:panelGrid columns="2"  >
+                            <p:outputLabel value="Desea crear un Nuevo Usuario"/>
+                            <p:column/>
+                            <p:commandButton icon="ui-icon-check" value="Aceptar"  immediate="true" onclick="Mostrar_Opcion(); PF('dlg3').hide();"  />
+                            <p:commandButton icon="ui-icon-close" value="Cancelar" immediate="true" onclick="PF('dlg3').hide();" />
+                        </p:panelGrid>
+                    </p:dialog>
+
+
+
+                </h:form>           
+
+
+            <div class="control-sidebar-bg"></div>
+
+        <script type="text/javascript" src="#{request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script> <!-- Correio -->
+        <script type="text/javascript" src="#{request.contextPath}/resources/dist/js/app.min.js"></script> <!-- Correio -->
+
+        <h:outputScript library="js" name="calendar_es.js" />
+
+    </h:body>
+
+</html>
